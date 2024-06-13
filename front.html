@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="loginApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Login</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      background-image: url(https://cdn.pixabay.com/photo/2017/02/15/10/39/salad-2068217_640.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+         }
+  
+  .container {
+      max-width: 500px;
+      margin: 80px auto;
+      padding: 40px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+  h2{
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+  }
+  
+  label {
+      display: block;
+      margin-bottom: 5px;
+  }
+  
+  input {
+      width: 100%;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 10px;
+  }
+  button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      align-items: center;
+  }
+  button:hover {
+    background-color: #0062cc;
+}
+
+.image-container {
+            margin-top: 30px;
+
+        }
+
+    img {
+            max-width: 100%;
+            height: 50;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+           
+    }
+
+p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body ng-controller="LoginController">
+
+<div class="container">
+    <h2>User Login</h2>
+<center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dVElTUxGUjBrdmOHfIKW55Sa1_WBXur2ng&usqp=CAU"></center>
+    <form ng-submit="loginUser()">
+        <label for="email">Email:</label>
+        <input type="email" id="email" ng-model="email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="password" required><br><br>
+
+        <button  value="Login">Login</button>
+    </form>
+
+<script>
+    angular.module('loginApp', [])
+        .controller('LoginController', ['$scope', '$http','$window', function($scope, $http, $window ) {
+            $scope.loginUser = function() {
+                const userData = {
+                    email: $scope.email,
+                    password: $scope.password
+                };
+
+                $http.post('/login', userData)
+                    .then(function(response) {
+                        alert('User logged in successfully successfully');
+                    // Clear the form fields after successful registration
+                    // Redirect to the login page
+                    $window.location.href = '/home.html';
+                })
+                    .catch(function(error) {
+                        alert('Error logging in. Please check your credentials.');
+                        console.error('Error logging in:', error);
+                    });
+            };
+        }]);
+       
+</script>
+<p>New to website? <a href="create.html">Register into website</a></p>
+</div>
+</body>
+</html>

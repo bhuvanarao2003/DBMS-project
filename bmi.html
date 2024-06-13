@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <style>
+       body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            background-image: url(data:image/jpeg;base64,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);
+            background-repeat: no-repeat;
+            background-size: cover;
+          
+        }
+      
+
+        .container {
+            text-align: center;
+        }
+
+        .calculator {
+            background-color: #fff;
+            border-radius: 10px;
+            border: 3px solid #181717;
+            width: 700px;
+            margin: 0 auto;
+            padding: 10px; /* Added padding back */
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .logo {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 850px; /* Adjust the right position as needed */
+    border-radius: 50%; /* Makes the shape oval */
+    overflow: hidden; /* Ensures the oval shape */
+}
+
+.logo img {
+    width: 100px; /* Adjust the width of the logo */
+    height: auto; /* Maintains aspect ratio */
+    display: block;
+}
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input, select {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        button {
+            
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #007bff;
+        }
+
+        .image-container {
+            margin-top: 30px;
+        }
+
+    img {
+            max-width: 100%;
+            height: 50;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        header,footer{
+            background-color: lavender;
+            color: #6f6767;
+            text-align: center;
+            padding: 10px;
+        }
+        p{
+            width:70;
+            text-align:justify;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: grey;
+        }
+        .profileButton {
+      background: none;
+      border: 1px solid black; /* Black border */
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 20px; /* Increased padding */
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HealthFit</h1>
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dVElTUxGUjBrdmOHfIKW55Sa1_WBXur2ng&usqp=CAU" alt="Nutritional Estimator Logo">
+        </div>
+        <button class="profileButton" id="profileButton"><a href="inside.html" >LOGOUT</a>
+        </button>
+    </header>
+
+    <nav>
+        <a href="home.html">HOME</a>
+        <a href="bmi.html">BMI CALCULATOR</a>
+        <a href="caloryCalc.html">CALORY CALCULATOR</a>
+        <a href="catagory.html">CATEGORIES</a>
+      
+    </nav>
+    <div class="container">
+        <div class="calculator">
+            <h1>BMI Calculator</h1>
+            <img src="https://www.drworkout.fitness/wp-content/uploads/2019/02/BMI.png">
+            <label for="weight">Weight (kg):</label>
+            <input type="number" id="weight" placeholder="Enter your weight">
+            <label for="height">Height (cm):</label>
+            <input type="number" id="height" placeholder="Enter your height">
+            <label for="sex">Sex:</label>
+            <select id="sex">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+            <label for="age">Age (years):</label>
+            <input type="number" id="age" placeholder="Enter your age"><br>
+            <button onclick="calculateBMI()">Calculate</button>
+            <div id="result"></div>
+        </div>
+    </div>
+    
+    <script>
+        function calculateBMI() {
+            var weight = parseFloat(document.getElementById('weight').value);
+            var height = parseFloat(document.getElementById('height').value) / 100; // Convert height to meters
+            var bmi = weight / (height * height);
+
+            if (isNaN(bmi)) {
+                document.getElementById('result').innerText = "Please enter valid values.";
+                return;
+            }
+
+            var bmiResult = "Your BMI is " + bmi.toFixed(2) + ". ";
+
+            if (bmi < 18.5) {
+                bmiResult += "You are underweight.";
+            } else if (bmi < 25) {
+                bmiResult += "You have a normal weight.";
+            } else if (bmi < 30) {
+                bmiResult += "You are overweight.";
+            } else {
+                bmiResult += "You are obese.";
+            }
+
+            document.getElementById('result').innerText = bmiResult;
+        }
+    </script>
+     <footer>
+             
+        &copy; 2024 HealthFit Website. All rights reserved.
+</footer>
+</body>
+</html>

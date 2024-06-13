@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="calorieApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calorie Estimator</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: grey;
+        }
+
+        form {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 30px;
+            background-color:rgb(164, 226, 164);
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-weight:600;
+            font-size:x-large;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            background-image: url(https://marketplace.canva.com/EAFCytpuJ08/1/0/1600w/canva-green-wateroclor-leaf-linktree-background-0Mp0WYk6_8E.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        .logo {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 850px; /* Adjust the right position as needed */
+    border-radius: 50%; /* Makes the shape oval */
+    overflow: hidden; /* Ensures the oval shape */
+}
+
+.logo img {
+    width: 100px; /* Adjust the width of the logo */
+    height: auto; /* Maintains aspect ratio */
+    display: block;
+}
+        header,footer{
+            background-color: lavender;
+            color: #6f6767;
+            text-align: center;
+            padding: 10px;
+        }
+        p{
+            width:70;
+            text-align:justify;
+        }
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        button{
+            font-size: large;
+        }
+        select{
+            font-size: large;
+        }
+        .profileButton {
+      background: none;
+      border: 1px solid black; /* Black border */
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 20px; /* Increased padding */
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    </style>
+</head>
+<body ng-controller="CalorieController">
+    <header>
+        <h1>HealthFit</h1>
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dVElTUxGUjBrdmOHfIKW55Sa1_WBXur2ng&usqp=CAU" alt="Nutritional Estimator Logo">
+        </div>
+        <button class="profileButton" id="profileButton"><a href="inside.html" >LOGOUT</a>
+        </button>
+    </header>
+    <nav>
+        <a href="home.html">HOME</a>
+        <a href="bmi.html">BMI CALCULATOR</a>
+        <a href="caloryCalc.html">CALORY CALCULATOR</a>
+        <a href="catagory.html">CATEGORIES</a>
+      
+    </nav>
+    <h1><center><b>CALORIE ESTIMATOR</b></center></h1>
+    <form>
+        <label for="foodCategory">Food Category:</label>
+        <select id="foodCategory" ng-model="selectedCategory" ng-options="category for category in foodCategories" required>
+            <option value="">Select Food Category</option>
+        </select><br><br>
+
+        <label for="FoodItems">Food Items:</label>
+        <select id="FoodItems" ng-model="selectedItem" ng-options="item for item in foodItems[selectedCategory]" required>
+            <option value="">Select Food Item</option>
+        </select><br><br>
+
+        <button type="button" ng-click="addToCart()">Add to Cart</button>
+
+        <hr>
+
+        <!-- Cart box to display selected items -->
+        <h2>Cart</h2>
+        <ul>
+            <li ng-repeat="item in cart">{{ item }}</li>
+        </ul><br>
+
+    <!-- Submit button for estimating calories -->
+    <button type="button" ng-click="estimateCalories()">Estimate Calories</button><br><br>
+    <!-- Display the estimated calories here -->
+    <div>{{ calorieResult }}</div>
+</form>
+    <script>
+        angular.module('calorieApp', [])
+        .controller('CalorieController', ['$scope', '$http', function($scope, $http) {
+            $scope.foodItems = {
+                "Vegetables": ["Carrot", "Spinach", "Tomato", "Broccoli", "Cucumber", "Bell Pepper", "Zucchini", "Lettuce", "Cabbage", 
+                                "Kale", "Cauliflower", "Asparagus", "Green Beans", "Brussels Sprouts", "Eggplant", "Potato", "Sweet Potato", 
+                                "Onion", "Garlic", "Mushroom"],
+                "Fruits": ["Apple", "Banana", "Orange", "Grapes", "Strawberry", "Watermelon", "Mango", "Pineapple", "Kiwi", "Peach", 
+                            "Plum", "Cherry", "Pear", "Grapefruit", "Cantaloupe", "Blueberry", "Raspberry", "Blackberry", "Apricot", "Coconut"],
+                "Nuts": ["Almonds", "Walnuts", "Cashews", "Peanuts", "Pistachios", "Hazelnuts", "Brazil Nuts", "Macadamia Nuts", "Pecans", 
+                            "Chestnuts", "Sunflower Seeds", "Pumpkin Seeds", "Flaxseeds", "Chia Seeds", "Sesame Seeds"],
+                "Grains": ["Rice", "Wheat", "Ragi (Finger Millet)", "Jowar (Sorghum)", "Bajra (Pearl Millet)", "Quinoa", "Barley", "Oats", 
+                            "Corn", "Brown Rice", "Maize", "Buckwheat", "Semolina (Sooji)", "Millet (Bajra)", "Amaranth (Rajgira)"],
+                "Drinks": ["Water", "Green Tea", "Black Coffee", "Milk", "Orange Juice", "Apple Juice", "Carrot Juice", "Coconut Water", 
+                            "Lemonade", "Vegetable Smoothie", "Protein Shake", "Iced Tea", "Soda", "Cranberry Juice", "Pomegranate Juice"]
+            };
+            $scope.foodCategories = Object.keys($scope.foodItems);
+            $scope.cart = [];
+            $scope.addToCart = function() {
+                if ($scope.selectedItem) {
+                    $scope.cart.push($scope.selectedItem);
+                }
+            };
+            
+            $scope.estimateCalories = function() {
+    $http.post('/totalCalories', { cartItems: $scope.cart })
+    .then(function(response) {
+        $scope.calorieResult = "Estimated Calories: " + response.data.total_calories +" Calories ";
+    })
+    .catch(function(error) {
+        console.error('Error:', error);
+    });
+};
+        }]);
+    </script>
+</body>
+</html>

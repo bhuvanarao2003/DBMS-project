@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="registrationApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+      body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5 ;
+    background-image: url(https://cdn.pixabay.com/photo/2017/02/15/10/39/salad-2068217_640.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+       
+}
+
+
+.container {
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.image-container {
+            margin-top: 30px;
+           
+        }
+
+    img {
+            max-width: 100%;
+            height: 50;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        
+    }
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    align-items: center;
+}
+
+button:hover {
+    background-color: #0062cc;
+}
+
+p {
+    text-align: center;
+    margin-top: 10px;
+}
+
+    </style>
+</head>
+<body ng-controller="RegistrationController">
+
+<div class="container">
+    <h2>User Registration</h2>
+    <center><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dVElTUxGUjBrdmOHfIKW55Sa1_WBXur2ng&usqp=CAU"></center>
+    <form ng-submit="registerUser()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" ng-model="user.name" required><br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" ng-model="user.email" required><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" ng-model="user.password" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" ng-model="user.age" required><br><br>
+
+        <label for="height">Height (in cm):</label>
+        <input type="number" id="height" ng-model="user.height" required><br><br>
+
+        <label for="weight">Weight:</label>
+        <input type="number" id="weight" ng-model="user.weight" required><br><br>
+
+        <button value="Register">Register</button>
+    </form>
+
+<script>
+    angular.module('registrationApp', [])
+        .controller('RegistrationController', ['$scope', '$http','$window', function($scope, $http, $window) {
+            $scope.user = {};
+
+            $scope.registerUser = function() {
+                $http.post('/register', $scope.user)
+                    .then(function(response) {
+                        alert('User registered successfully');
+                        // Clear the form fields after successful registration
+                        $window.location.href = '/front.html';
+                    })
+                    .catch(function(error) {
+                        console.error('Error registering user:', error);
+                        alert('Error registering user. Please try again.');
+                    });
+            };
+        }]);
+</script>
+<p>Registered? <a href="front.html">login into website</a></p>
+</div>
+</body>
+</html>

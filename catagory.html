@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Categories</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        header,footer{
+            background-color: lavender;
+            color: #6f6767;
+            text-align: center;
+            padding: 10px;
+        }
+        nav {
+            background-color: #494949;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        section {
+            margin: 20px;
+        }
+        .category {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .category-item {
+            width: 300px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .category-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .category-item h3 {
+            text-align: center;
+            margin: 10px 0;
+        }
+        h1{
+            text-align:center;
+            text-decoration: solid;
+            background-color: lavender;
+            padding: 10px;
+        }
+        .logo {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+    right: 850px; /* Adjust the right position as needed */
+    border-radius: 50%; /* Makes the shape oval */
+    overflow: hidden; /* Ensures the oval shape */
+}
+
+.logo img {
+    width: 100px; /* Adjust the width of the logo */
+    height: auto; /* Maintains aspect ratio */
+    display: block;
+}
+.profileButton {
+      background: none;
+      border: 1px solid black; /* Black border */
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 20px; /* Increased padding */
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HealthFit</h1>
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dVElTUxGUjBrdmOHfIKW55Sa1_WBXur2ng&usqp=CAU" alt="Nutritional Estimator Logo">
+        </div>
+        <button class="profileButton" id="profileButton"><a href="inside.html" >LOGOUT</a>
+        </button>
+    </header>
+
+    <nav>
+        <a href="home.html">HOME</a>
+        <a href="bmi.html">BMI CALCULATOR</a>
+        <a href="caloryCalc.html">CALORY CALCULATOR</a>
+        <a href="catagory.html">CATOGORIES</a>
+    </nav>
+    <section id="vegetables">
+        <h1>Vegetables</h1>
+        <div class="category">
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2017/06/09/16/39/carrots-2387394_640.jpg" alt="Carrot">
+                <h3>Carrot</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2022/09/05/09/50/tomatoes-7433786_640.jpg" alt="Tomato">
+                <h3>Tomato</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/08/11/08/49/potatoes-1585075_640.jpg" alt="Potato">
+                <h3>Potato</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2015/03/24/08/52/beetroot-687251_640.jpg" alt="Beetroot">
+                <h3>Beetroot</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2014/10/22/21/54/bell-peppers-499068_640.jpg" alt="bellpeppers">
+                <h3>bellpeppers</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2022/09/01/20/41/tomatoes-7426160_640.jpg" alt="Brinjal">
+                <h3>Brinjal</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/05/06/11/46/tomatoes-1375740_640.jpg" alt="Pumpkin">
+                <h3>Pumpkin</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/11/22/21/44/cabbage-1850722_640.jpg" alt="cabbage-1850722_640">
+                <h3>Cabbage</h3>
+            </div>
+            
+        </div>
+    </section>
+    <section id="fruits">
+        <h1>Fruits</h1>
+        <div class="category">
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2018/04/29/11/54/strawberries-3359755_640.jpg" alt="Fruit 1">
+                <h3>Strawberries</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/10/07/14/11/tangerines-1721633_640.jpg" alt="Fruit 2">
+                <h3>Tangerines</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2018/05/08/20/19/pomegranate-3383814_640.jpg" alt="Fruit 1">
+                <h3>Pomagranate</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2018/06/07/16/38/blueberries-3460423_1280.jpg" alt="Fruit 1">
+                <h3>Blueberries</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2018/06/15/23/27/cherries-3477927_640.jpg" alt="Fruit 1">
+                <h3>Cherries</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2015/02/14/18/10/pineapple-636562_640.jpg" alt="Fruit 1">
+                <h3>Pineapple</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2017/08/18/19/48/grapes-2656259_640.jpg" alt="Fruit 1">
+                <h3>Grapes</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/01/03/17/59/bananas-1119790_640.jpg" alt="Fruit 1">
+                <h3>Banana</h3>
+            </div>
+            
+        </div>
+    </section>
+    <section id="grains">
+        <h1>Grains & Nuts</h1>
+        <div class="category">
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2018/03/13/20/08/pistachios-3223610_1280.jpg" alt="Grain 1">
+                <h3>Pistachios</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/11/15/18/32/peanuts-1827031_640.jpg" alt="Nut 1">
+                <h3>Peanuts</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2020/09/29/08/19/almond-5612190_640.jpg" alt="Grain 1">
+                <h3>Almonds</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/09/29/17/51/chestnut-1703409_640.jpg" alt="Grain 1">
+                <h3>Walnuts</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/11/18/17/37/cashew-1835995_640.jpg" alt="Grain 1">
+                <h3>Cashews</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2018/03/12/10/57/food-3219373_640.jpg" alt="Grain 1">
+                <h3>Raisns</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2023/10/16/12/09/oatmeal-8319100_640.jpg" alt="Grain 1">
+                <h3>Oatmeal</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/10/01/14/00/hazelnuts-1707601_640.jpg" alt="Grain 1">
+                <h3>Hazelnut</h3>
+            </div>
+        </div>
+    </section>
+    <section id="beverages">
+        <h1>Beverages</h1>
+        <div class="category">
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2012/02/23/09/16/coffee-15994_640.jpg" alt="Beverage 1">
+                <h3>Coffee</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2017/05/30/12/19/tea-2356764_640.jpg" alt="Beverage 2">
+                <h3>Tea</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2017/07/05/15/41/milk-2474993_640.jpg" alt="Beverage 2">
+                <h3>Milk</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2014/08/26/19/19/alcohol-428319_640.jpg" alt="Beverage 2">
+                <h3>Margarita</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2016/11/19/13/53/margarita-1839361_640.jpg" alt="Beverage 2">
+                <h3>Margarita</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2015/07/18/13/14/wine-850337_640.jpg" alt="Beverage 2">
+                <h3>Wine</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2015/08/25/16/12/lime-907124_640.jpg" alt="Beverage 2">
+                <h3>Limedrink</h3>
+            </div>
+            <div class="category-item">
+                <img src="https://cdn.pixabay.com/photo/2023/06/20/10/06/cocktail-8076619_640.jpg" alt="Beverage 2">
+                <h3>Moctail</h3>
+            </div>
+        </div>
+    </section>
+    <footer>
+             
+        &copy; 2024 HealthFit Website. All rights reserved.
+</footer>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            background-image: url(https://img.freepik.com/premium-photo/food-background-fruits-vegetables-berries-white-wooden-background-top-view-rustic-style_187166-31554.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            
+        }
+        .logo {
+    position: absolute;
+    top: 10px; /* Adjust the top position as needed */
+   right: 850px; /* Adjust the right position as needed */
+    border-radius: 50%; /* Makes the shape oval */
+    overflow: hidden; /* Ensures the oval shape */
+}
+ .profileButton {
+      background: none;
+      border: 1px solid black; /* Black border */
+      cursor: pointer;
+      font-size: 16px;
+      padding: 10px 20px; /* Increased padding */
+      position: absolute;
+      top: 20px;
+      right: 20px;
+    }
+
+.logo img {
+    width: 100px; /* Adjust the width of the logo */
+    height: auto; /* Maintains aspect ratio */
+    display: block;
+}
+header,footer{
+            background-color: lavender;
+            color: #6f6767;
+            text-align: center;
+            padding: 10px;
+        }
+        .container {
+    max-width: 700px;
+    margin: 30px;
+    padding: 50px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #cfc6c6;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    line-height: 1.7;
+    text-align: justify;
+}
+
+        nav {
+            background-color: #444;
+            padding: 10px;
+            text-align: center;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        
+
+        nav a:hover {
+            background-color: grey;
+        }
+        section {
+            margin: 20px;
+        }
+        h1{
+            text-align:center;
+            text-decoration: solid;
+            background-color: lavender;
+            padding: 10px;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>HealthFit</h1>
+        <div class="logo">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0dVElTUxGUjBrdmOHfIKW55Sa1_WBXur2ng&usqp=CAU" alt="Nutritional Estimator Logo">
+        </div>
+        <button class="profileButton" id="profileButton"><a href="inside.html" >LOGOUT</a>
+    </button>
+    </header>
+
+    <nav>
+        <a href="home.html">HOME</a>
+        <a href="bmi.html">BMI CALCULATOR</a>
+        <a href="caloryCalc.html">CALORY CALCULATOR</a>
+        <a href="catagory.html">CATOGORIES</a>
+        
+    </nav>
+    <section class="about">
+        <div class="container">
+            <h2>Nutritional Facts</h2>
+            <P>Nutrition is a critical part of health and development. Better nutrition is related to improved infant, child and maternal health, stronger immune systems, safer pregnancy and childbirth, lower risk of non-communicable diseases (such as diabetes and cardiovascular disease), and longevity. Healthy children learn better.</P>
+            <p>We are dedicated to providing accurate nutritional information and tools to help you achieve your health and fitness goals.</p>
+            <p>Our team of experts ensures that our calculators and resources are up-to-date and reliable.</p>
+            <h3>Surprising connections between lifestyle and health</h3> 
+            <ul><li>Drinking a cup of coffee can reduce feelings of depression. </li>
+            <li>Owning a dog may reduce heart disease risk.</li>
+            <li>Stress increases your risk of type 2 diabetes.</li>
+            <li>The body can produce enough heat in just half an hour to boil water.</li></ul>
+            <h2>AboutUs</h2>
+            <p>We are dedicated to providing accurate nutritional information and tools to help you achieve your health and fitness goals.</p>
+            <p>Our team of experts ensures that our calculators and resources are up-to-date and reliable.</p>
+            
+            
+        </div>
+    </section>
+    <footer>
+        <p>&copy; 2024 Nutritional Estimator. All rights reserved.</p>
+    </footer>
+</body>
+</html>

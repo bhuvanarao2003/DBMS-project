@@ -1,27 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
-const bcrypt = require('bcrypt');
-const dotenv = require('dotenv');
-const session = require('express-session');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const { Sequelize } = require('sequelize');
-
-dotenv.config();
-
+const bcrypt=require('bcrypt');
 const app = express();
 const port = 3000;
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(__dirname));
 
 const connection = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  host: 'localhost',
+  user: 'root',
+  password: 'gouthu12345678',
+  database: 'root_project',
 });
 
 connection.connect((err) => {
@@ -32,129 +23,98 @@ connection.connect((err) => {
   }
 });
 
-// Set up Sequelize for session management
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-  host: process.env.DB_HOST,
-  dialect: 'mysql',
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/inside.html');
 });
-
-const sessionStore = new SequelizeStore({
-  db: sequelize,
-});
-
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    store: sessionStore,
-    resave: false,
-    saveUninitialized: false,
-  })
-);
-
-sessionStore.sync();
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-passport.use(
-  new LocalStrategy({ usernameField: 'email' }, (email, password, done) => {
-    connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
-      if (error) return done(error);
-
-      if (results.length === 0) {
-        return done(null, false, { message: 'Incorrect email.' });
-      }
-
-      const user = results[0];
-      bcrypt.compare(password, user.password, (err, isMatch) => {
-        if (err) return done(err);
-        if (isMatch) return done(null, user);
-        return done(null, false, { message: 'Incorrect password.' });
-      });
-    });
-  })
-);
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  connection.query('SELECT * FROM users WHERE id = ?', [id], (err, results) => {
-    if (err) return done(err);
-    done(null, results[0]);
-  });
-});
-
-const ensureAuthenticated = (req, res, next) => {
-  if (req.isAuthenticated()) return next();
-  res.redirect('/login');
-};
-
-app.get('/', ensureAuthenticated, (req, res) => {
-  res.sendFile(__dirname + '/public/inside.html');
-});
-
 app.post('/register', (req, res) => {
   const user = req.body;
 
+  // Hash the password before storing it
   bcrypt.hash(user.password, 10, (err, hash) => {
-    if (err) {
-      console.error('Error hashing password:', err);
-      res.status(500).send('Error registering user');
-      return;
-    }
-
-    connection.query(
-      'INSERT INTO users (name, email, password, age, height, weight) VALUES (?, ?, ?, ?, ?, ?)',
-      [user.name, user.email, hash, user.age, user.height, user.weight],
-      (error, results) => {
-        if (error) {
-          console.error('Error registering user:', error);
+      if (err) {
+          console.error('Error hashing password:', err);
           res.status(500).send('Error registering user');
-        } else {
-          res.status(200).send('User registered successfully');
-        }
+          return;
       }
-    );
+
+      connection.query(
+          'INSERT INTO users (name, email, password, age, height, weight) VALUES (?, ?, ?, ?, ?, ?)',
+          [user.name, user.email, hash, user.age, user.height, user.weight],
+          (error, results, fields) => {
+              if (error) {
+                  console.error('Error registering user:', error);
+                  res.status(500).send('Error registering user');
+              } else {
+                  res.status(200).send('User registered successfully');
+              }
+            }
+            );
+        });
+    });
+    app.post('/login', (req, res) => {
+      const { email, password } = req.body;
+  
+      // Check if the email exists in the database
+      connection.query('SELECT * FROM users WHERE email = ?', [email], (error, results) => {
+          if (error) {
+              console.error('Error retrieving user:', error);
+              return res.status(500).json({ error: 'Server error' });
+          }
+  
+          if (results.length === 0) {
+              return res.status(404).json({ error: 'User not found' });
+          }
+  
+          const user = results[0];
+          bcrypt.compare(password, user.password, (err, result) => {
+            if (err) {
+                console.error('Error comparing passwords:', err);
+                return res.status(500).json({ error: 'Server error' });
+            }
+
+            if (result) {
+                // Passwords match, login successful
+                res.json({ message: 'Login successful', user: { id: user.id, name: user.name, email: user.email } });
+            } else {
+                // Passwords don't match
+                res.status(401).json({ error: 'Invalid password' });
+            }
+        });
+    });
   });
-});
-
-app.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true,
-}));
-
-app.post('/totalCalories', ensureAuthenticated, (req, res) => {
+  
+app.post('/totalCalories', (req, res) => {
   const cartItems = req.body.cartItems;
   if (!cartItems || cartItems.length === 0) {
     return res.status(400).send('No items in the cart to calculate calories');
   }
 
   let query = `SELECT SUM(calories) AS total_calories FROM (
-                SELECT VegCalorie AS calories FROM Vegetable WHERE VegName IN (${cartItems.map(item => `'${item}'`).join(',')})
-                UNION ALL
-                SELECT FruitCalorie AS calories FROM Fruit WHERE FruitName IN (${cartItems.map(item => `'${item}'`).join(',')})
-                UNION ALL
-                SELECT NutCalorie AS calories FROM Nuts WHERE NutName IN (${cartItems.map(item => `'${item}'`).join(',')})
-                UNION ALL
-                SELECT GrainCalorie AS calories FROM Grains WHERE GrainName IN (${cartItems.map(item => `'${item}'`).join(',')})
-                UNION ALL
-                SELECT DrinkCalorie AS calories FROM Drinks WHERE DrinkName IN (${cartItems.map(item => `'${item}'`).join(',')})
+                  SELECT VegCalorie AS calories FROM Vegetable WHERE VegName IN (${cartItems.map(item => `'${item}'`).join(',')})
+                  UNION ALL
+                  SELECT FruitCalorie AS calories FROM Fruit WHERE FruitName IN (${cartItems.map(item => `'${item}'`).join(',')})
+                  UNION ALL
+                  SELECT NutCalorie AS calories FROM Nuts WHERE NutName IN (${cartItems.map(item => `'${item}'`).join(',')})
+                  UNION ALL
+                  SELECT GrainCalorie AS calories FROM Grains WHERE GrainName IN (${cartItems.map(item => `'${item}'`).join(',')})
+                  UNION ALL
+                  SELECT DrinkCalorie AS calories FROM Drinks WHERE DrinkName IN (${cartItems.map(item => `'${item}'`).join(',')})
               ) AS all_foods`;
 
-  connection.query(query, (error, results) => {
+
+  connection.query(query, (error, results, fields) => {
     if (error) {
       console.error('Error retrieving total calories: ', error);
       res.status(500).send('Error retrieving total calories');
     } else {
       const totalCalories = results[0].total_calories || 0;
-      res.json({ total_calories: totalCalories });
+      res.json({total_calories:totalCalories });
     }
   });
 });
 
+
+
 app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+  console.log('Server is running on port ${port}');
 });

@@ -103,26 +103,7 @@ p {
 
         <button value="Register">Register</button>
     </form>
-
-<script>
-    angular.module('registrationApp', [])
-        .controller('RegistrationController', ['$scope', '$http','$window', function($scope, $http, $window) {
-            $scope.user = {};
-
-            $scope.registerUser = function() {
-                $http.post('/register', $scope.user)
-                    .then(function(response) {
-                        alert('User registered successfully');
-                        // Clear the form fields after successful registration
-                        $window.location.href = '/front.html';
-                    })
-                    .catch(function(error) {
-                        console.error('Error registering user:', error);
-                        alert('Error registering user. Please try again.');
-                    });
-            };
-        }]);
-</script>
+    <script src="script.js"></script>
 <p>Registered? <a href="front.html">login into website</a></p>
 </div>
 </body>

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calorie Estimator</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
         
         nav a {
@@ -138,40 +139,6 @@
     <!-- Display the estimated calories here -->
     <div>{{ calorieResult }}</div>
 </form>
-    <script>
-        angular.module('calorieApp', [])
-        .controller('CalorieController', ['$scope', '$http', function($scope, $http) {
-            $scope.foodItems = {
-                "Vegetables": ["Carrot", "Spinach", "Tomato", "Broccoli", "Cucumber", "Bell Pepper", "Zucchini", "Lettuce", "Cabbage", 
-                                "Kale", "Cauliflower", "Asparagus", "Green Beans", "Brussels Sprouts", "Eggplant", "Potato", "Sweet Potato", 
-                                "Onion", "Garlic", "Mushroom"],
-                "Fruits": ["Apple", "Banana", "Orange", "Grapes", "Strawberry", "Watermelon", "Mango", "Pineapple", "Kiwi", "Peach", 
-                            "Plum", "Cherry", "Pear", "Grapefruit", "Cantaloupe", "Blueberry", "Raspberry", "Blackberry", "Apricot", "Coconut"],
-                "Nuts": ["Almonds", "Walnuts", "Cashews", "Peanuts", "Pistachios", "Hazelnuts", "Brazil Nuts", "Macadamia Nuts", "Pecans", 
-                            "Chestnuts", "Sunflower Seeds", "Pumpkin Seeds", "Flaxseeds", "Chia Seeds", "Sesame Seeds"],
-                "Grains": ["Rice", "Wheat", "Ragi (Finger Millet)", "Jowar (Sorghum)", "Bajra (Pearl Millet)", "Quinoa", "Barley", "Oats", 
-                            "Corn", "Brown Rice", "Maize", "Buckwheat", "Semolina (Sooji)", "Millet (Bajra)", "Amaranth (Rajgira)"],
-                "Drinks": ["Water", "Green Tea", "Black Coffee", "Milk", "Orange Juice", "Apple Juice", "Carrot Juice", "Coconut Water", 
-                            "Lemonade", "Vegetable Smoothie", "Protein Shake", "Iced Tea", "Soda", "Cranberry Juice", "Pomegranate Juice"]
-            };
-            $scope.foodCategories = Object.keys($scope.foodItems);
-            $scope.cart = [];
-            $scope.addToCart = function() {
-                if ($scope.selectedItem) {
-                    $scope.cart.push($scope.selectedItem);
-                }
-            };
-            
-            $scope.estimateCalories = function() {
-    $http.post('/totalCalories', { cartItems: $scope.cart })
-    .then(function(response) {
-        $scope.calorieResult = "Estimated Calories: " + response.data.total_calories +" Calories ";
-    })
-    .catch(function(error) {
-        console.error('Error:', error);
-    });
-};
-        }]);
-    </script>
+<script src="script.js"></script>
 </body>
 </html>

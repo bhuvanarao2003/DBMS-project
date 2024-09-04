@@ -90,30 +90,7 @@ p {
         <button  value="Login">Login</button>
     </form>
 
-<script>
-    angular.module('loginApp', [])
-        .controller('LoginController', ['$scope', '$http','$window', function($scope, $http, $window ) {
-            $scope.loginUser = function() {
-                const userData = {
-                    email: $scope.email,
-                    password: $scope.password
-                };
-
-                $http.post('/login', userData)
-                    .then(function(response) {
-                        alert('User logged in successfully successfully');
-                    // Clear the form fields after successful registration
-                    // Redirect to the login page
-                    $window.location.href = '/home.html';
-                })
-                    .catch(function(error) {
-                        alert('Error logging in. Please check your credentials.');
-                        console.error('Error logging in:', error);
-                    });
-            };
-        }]);
-       
-</script>
+    <script src="script.js"></script>
 <p>New to website? <a href="create.html">Register into website</a></p>
 </div>
 </body>
